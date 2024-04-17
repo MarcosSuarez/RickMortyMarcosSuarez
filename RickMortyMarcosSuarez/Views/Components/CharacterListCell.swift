@@ -12,7 +12,7 @@ struct CharacterListCell: View {
     
     @State private var image: UIImage?
     var urlString: String = "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
-    var name: String = "Nombre personaje"
+    var name: String = "Character Name"
     var gender: String = "Female"
     var specie: String = "Human"
     
