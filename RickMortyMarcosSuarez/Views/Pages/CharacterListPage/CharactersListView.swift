@@ -24,6 +24,7 @@ struct CharactersListView: View {
                         
                 } else {
                     listCharacters
+                        .environmentObject(ImageLoader())
                 }
             }
             .offset(y: loadingList ? -40 : 0)
@@ -41,18 +42,16 @@ struct CharactersListView: View {
             ForEach(Array(viewModel.characters.enumerated()), id: \.offset) { index, character in
                 
                 CharacterListCell(
-                    image: .constant(nil),
+                    urlString: character.image,
                     name: character.name,
                     gender: character.gender.rawValue,
                     specie: character.species
                 )
                 .padding(8)
-                .onAppear {
+                .task {
                     let reloadAtIndex = viewModel.characters.endIndex - 5
                     if index > reloadAtIndex {
-                        Task {
-                            await viewModel.loadCharacters()
-                        }
+                        await viewModel.loadCharacters()
                     }
                 }
                 
@@ -64,7 +63,6 @@ struct CharactersListView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .center)
                 }
-                
             }
         }
     }

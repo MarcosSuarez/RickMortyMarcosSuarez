@@ -17,6 +17,7 @@ struct LogoCharacter: View {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFit()
+                    .cornerRadius(12)
             } else {
                 RoundedRectangle(cornerRadius: 12)
                     .fill(.background)

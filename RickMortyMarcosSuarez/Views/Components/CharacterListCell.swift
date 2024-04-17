@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct CharacterListCell: View {
+    @EnvironmentObject var imageLoader: ImageLoader
     
-    @Binding var image: UIImage?
+    @State private var image: UIImage?
+    var urlString: String = "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
     var name: String = "Nombre personaje"
     var gender: String = "Female"
     var specie: String = "Human"
@@ -32,10 +34,14 @@ struct CharacterListCell: View {
             .padding(.trailing, 16)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .task {
+            image = try? await imageLoader.image(urlString)
+        }
     }
 }
 
 #Preview {
-    CharacterListCell(image: .constant(nil))
+    CharacterListCell()
         .padding()
+        .environmentObject(ImageLoader())
 }

@@ -27,6 +27,7 @@
 		198E80662BCF90B9000457BE /* CharacterListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198E80652BCF90B9000457BE /* CharacterListCell.swift */; };
 		198E80682BCFB5F3000457BE /* CharactersListViewModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198E80672BCFB5F3000457BE /* CharactersListViewModelTest.swift */; };
 		198E806E2BCFC6D0000457BE /* GetListCharacterUseCaseTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198E806D2BCFC6D0000457BE /* GetListCharacterUseCaseTest.swift */; };
+		198E80702BCFD415000457BE /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198E806F2BCFD415000457BE /* ImageLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		198E80652BCF90B9000457BE /* CharacterListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListCell.swift; sourceTree = "<group>"; };
 		198E80672BCFB5F3000457BE /* CharactersListViewModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewModelTest.swift; sourceTree = "<group>"; };
 		198E806D2BCFC6D0000457BE /* GetListCharacterUseCaseTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetListCharacterUseCaseTest.swift; sourceTree = "<group>"; };
+		198E806F2BCFD415000457BE /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 				195A4C1C2BCE6719007C84B2 /* CharacterListResponse.swift */,
 				195A4C1E2BCE67D1007C84B2 /* URLCharacters.swift */,
 				195A4C202BCE6975007C84B2 /* HTTPClientAsyncAwait.swift */,
+				198E806F2BCFD415000457BE /* ImageLoader.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -372,6 +375,7 @@
 				198E805E2BCF7E2F000457BE /* CharactersListViewModel.swift in Sources */,
 				195A4C1F2BCE67D1007C84B2 /* URLCharacters.swift in Sources */,
 				198E80602BCF806D000457BE /* GetListCharacterUseCase.swift in Sources */,
+				198E80702BCFD415000457BE /* ImageLoader.swift in Sources */,
 				195A4C212BCE6975007C84B2 /* HTTPClientAsyncAwait.swift in Sources */,
 				195A4C242BCE72E2007C84B2 /* CharacterListRepository.swift in Sources */,
 				198E805B2BCF791E000457BE /* CharactersListView.swift in Sources */,
