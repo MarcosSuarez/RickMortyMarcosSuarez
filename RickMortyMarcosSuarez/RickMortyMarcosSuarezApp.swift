@@ -12,6 +12,7 @@ struct RickMortyMarcosSuarezApp: App {
     var body: some Scene {
         WindowGroup {
             CharactersListView()
+                .environmentObject(ImageLoader())
         }
     }
 }

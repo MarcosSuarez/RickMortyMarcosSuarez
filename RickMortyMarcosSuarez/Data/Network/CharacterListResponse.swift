@@ -23,7 +23,7 @@ struct Info: Codable {
     let prev: String?
 }
 
-struct CharacterInfo: Codable, Identifiable {
+struct CharacterInfo: Codable, Identifiable, Hashable {
     let id: Int
     let name: String
     let status: Status
@@ -55,7 +55,7 @@ enum Gender: String, Codable {
     case genderless = "Genderless"
 }
 
-struct Location: Codable {
+struct Location: Codable, Hashable {
     let name: String
     let url: String
 }

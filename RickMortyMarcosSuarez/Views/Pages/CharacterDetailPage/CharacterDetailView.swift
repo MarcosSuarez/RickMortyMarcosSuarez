@@ -10,7 +10,6 @@ import SwiftUI
 struct CharacterDetailView: View {
     @EnvironmentObject var imageLoader: ImageLoader
     var character: CharacterInfo
-    var urlString: String = "https://rickandmortyapi.com/api/character/avatar/2.jpeg"
     @State private var image: UIImage?
     
     var body: some View {
@@ -23,7 +22,7 @@ struct CharacterDetailView: View {
         }
         .navigationTitle(character.name)
         .task {
-            image = try? await imageLoader.image(urlString)
+            image = try? await imageLoader.image(character.image)
         }
     }
     

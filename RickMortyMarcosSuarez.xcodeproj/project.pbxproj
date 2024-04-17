@@ -109,7 +109,6 @@
 			children = (
 				195A4BED2BCE5E5F007C84B2 /* RickMortyMarcosSuarezApp.swift */,
 				195A4BFC2BCE5ED5007C84B2 /* Views */,
-				195A4BFB2BCE5EC4007C84B2 /* Domain */,
 				195A4BFF2BCE5FD4007C84B2 /* UseCases */,
 				195A4C222BCE72C1007C84B2 /* Data */,
 				195A4BF12BCE5E60007C84B2 /* Assets.xcassets */,
@@ -124,13 +123,6 @@
 				195A4BF42BCE5E60007C84B2 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		195A4BFB2BCE5EC4007C84B2 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Domain;
 			sourceTree = "<group>";
 		};
 		195A4BFC2BCE5ED5007C84B2 /* Views */ = {

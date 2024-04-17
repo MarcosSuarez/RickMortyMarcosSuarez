@@ -24,12 +24,15 @@ struct CharactersListView: View {
                         
                 } else {
                     listCharacters
-                        .environmentObject(ImageLoader())
                 }
             }
             .offset(y: loadingList ? -40 : 0)
             .navigationTitle("Rick & Morty")
+            .navigationDestination(for: CharacterInfo.self) { character in
+                CharacterDetailView(character: character)
+            }
         }
+        
         .task {
             await viewModel.loadCharacters()
             loadingList = false
@@ -40,28 +43,29 @@ struct CharactersListView: View {
     private var listCharacters: some View {
         List {
             ForEach(Array(viewModel.characters.enumerated()), id: \.offset) { index, character in
-                
-                CharacterListCell(
-                    urlString: character.image,
-                    name: character.name,
-                    gender: character.gender.rawValue,
-                    specie: character.species
-                )
-                .padding(8)
-                .task {
-                    let reloadAtIndex = viewModel.characters.endIndex - 5
-                    if index > reloadAtIndex {
-                        await viewModel.loadCharacters()
+                NavigationLink(value: character) {
+                    CharacterListCell(
+                        urlString: character.image,
+                        name: character.name,
+                        gender: character.gender.rawValue,
+                        specie: character.species
+                    )
+                    .padding(8)
+                    .task {
+                        let reloadAtIndex = viewModel.characters.endIndex - 5
+                        if index > reloadAtIndex {
+                            await viewModel.loadCharacters()
+                        }
                     }
-                }
-                
-                if index == viewModel.characters.endIndex - 1, viewModel.isLoading {
-                    HStack(alignment: .center, spacing: 16) {
-                        ProgressView()
-                        Text("Loading more characters...")
-                            .multilineTextAlignment(.center)
+                    
+                    if index == viewModel.characters.endIndex - 1, viewModel.isLoading {
+                        HStack(alignment: .center, spacing: 16) {
+                            ProgressView()
+                            Text("Loading more characters...")
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .center)
                     }
-                    .frame(maxWidth: .infinity, alignment: .center)
                 }
             }
         }
@@ -71,4 +75,5 @@ struct CharactersListView: View {
 #Preview {
     CharactersListView()
         .toolbar(.visible, for: .navigationBar)
+        .environmentObject(ImageLoader())
 }

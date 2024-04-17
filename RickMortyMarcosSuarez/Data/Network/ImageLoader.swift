@@ -24,6 +24,7 @@ actor ImageLoader: ObservableObject {
         if let cached = cache[urlString] {
             switch cached {
             case .completed(let image):
+                print("Cached image")
                 return image
             case .inProgress(let task):
                 return try await task.value
