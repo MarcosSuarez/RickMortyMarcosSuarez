@@ -1,5 +1,5 @@
 //
-//  LoadingCell.swift
+//  LoadingCellView.swift
 //  RickMortyMarcosSuarez
 //
 //  Created by Marcos Suarez Ayala on 18/4/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct LoadingCell: View {
+struct LoadingCellView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 16) {
@@ -21,5 +21,5 @@ struct LoadingCell: View {
 }
 
 #Preview {
-    LoadingCell()
+    LoadingCellView()
 }

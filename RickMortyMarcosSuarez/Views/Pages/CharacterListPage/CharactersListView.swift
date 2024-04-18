@@ -62,7 +62,7 @@ struct CharactersListView: View {
                         
                         if index == viewModel.characters.endIndex - 1, viewModel.isLoading {
                             Divider()
-                            LoadingCell()
+                            LoadingCellView()
                                 .padding()
                         }
                         
