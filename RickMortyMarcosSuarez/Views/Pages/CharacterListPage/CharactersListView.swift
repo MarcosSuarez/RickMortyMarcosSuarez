@@ -51,27 +51,27 @@ struct CharactersListView: View {
         List {
             ForEach(Array(viewModel.characters.enumerated()), id: \.offset) { index, character in
                 NavigationLink(value: character) {
-                    CharacterListCell(
-                        urlString: character.image,
-                        name: character.name,
-                        gender: character.gender.rawValue,
-                        specie: character.species
-                    )
-                    .padding(8)
+                    VStack {
+                        CharacterListCell(
+                            urlString: character.image,
+                            name: character.name,
+                            gender: character.gender.rawValue,
+                            specie: character.species
+                        )
+                        .padding(8)
+                        
+                        if index == viewModel.characters.endIndex - 1, viewModel.isLoading {
+                            Divider()
+                            LoadingCell()
+                                .padding()
+                        }
+                        
+                    }
                     .task {
                         let reloadAtIndex = viewModel.characters.endIndex - 5
                         if index > reloadAtIndex {
                             await viewModel.loadCharacters()
                         }
-                    }
-                    
-                    if index == viewModel.characters.endIndex - 1, viewModel.isLoading {
-                        HStack(alignment: .center, spacing: 16) {
-                            ProgressView()
-                            Text("Loading more characters...")
-                                .multilineTextAlignment(.center)
-                        }
-                        .frame(maxWidth: .infinity, alignment: .center)
                     }
                 }
             }
