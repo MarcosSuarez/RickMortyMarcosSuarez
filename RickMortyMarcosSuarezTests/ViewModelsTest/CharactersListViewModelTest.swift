@@ -65,13 +65,10 @@ final class CharactersListViewModelTest: XCTestCase {
         var lastPage: Int = .max
         var response: [CharacterInfo] = []
         
-        func getCharacterList(pageNumber: String) async throws -> [CharacterInfo] {
-            guard let num = Int(pageNumber) else {
-                return []
-            }
-            isLastPage = num == lastPage
+        func getCharacterList(pageNumber: Int) async throws -> [CharacterInfo] {
+            isLastPage = pageNumber == lastPage
             guard !isLastPage else { return response }
-            return builtListCharacterInfoMock(page: num)
+            return builtListCharacterInfoMock(page: pageNumber)
         }
         
         private func builtListCharacterInfoMock(page: Int) -> [CharacterInfo] {

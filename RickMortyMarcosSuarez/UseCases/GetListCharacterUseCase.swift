@@ -9,7 +9,7 @@ import Foundation
 
 protocol GetListCharacterUseCase {
     var isLastPage: Bool { get set }
-    func getCharacterList(pageNumber: String) async throws -> [CharacterInfo]
+    func getCharacterList(pageNumber: Int) async throws -> [CharacterInfo]
 }
 
 final class DefaultGetListCharacterUseCase: GetListCharacterUseCase {
@@ -22,7 +22,7 @@ final class DefaultGetListCharacterUseCase: GetListCharacterUseCase {
         self.repository = repository
     }
     
-    func getCharacterList(pageNumber: String) async throws -> [CharacterInfo] {
+    func getCharacterList(pageNumber: Int) async throws -> [CharacterInfo] {
         do {
             let response = try await repository.getCharacterList(pageNumber: pageNumber)
             isLastPage = response.info.next == nil

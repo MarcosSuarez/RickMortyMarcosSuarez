@@ -23,7 +23,7 @@ final class GetListCharacterUseCaseTest: XCTestCase {
         repository.nextPage = nil
         
         do {
-            let characters = try await sut?.getCharacterList(pageNumber: "1")
+            let characters = try await sut?.getCharacterList(pageNumber: 1)
             XCTAssertTrue(sut?.isLastPage ?? false)
             XCTAssertTrue(characters?.isEmpty ?? false)
         } catch {
@@ -37,7 +37,7 @@ final class GetListCharacterUseCaseTest: XCTestCase {
         repository.prevPage = "somePrevPage"
         repository.nextPage = "someNextPage"
         do {
-            let characters = try await sut?.getCharacterList(pageNumber: "1")
+            let characters = try await sut?.getCharacterList(pageNumber: 1)
             XCTAssertFalse(sut?.isLastPage ?? true)
             XCTAssertTrue(characters?.isEmpty ?? false)
         } catch {
@@ -52,7 +52,7 @@ final class GetListCharacterUseCaseTest: XCTestCase {
         repository.nextPage = "someNextPage"
         repository.error = AppError.invalidUrl
         do {
-            let characters = try await sut?.getCharacterList(pageNumber: "1")
+            let characters = try await sut?.getCharacterList(pageNumber: 1)
             XCTFail("Expected error and receive \(characters!)")
         } catch let errorApp as AppError {
             XCTAssertNotNil(errorApp)
@@ -68,7 +68,7 @@ final class GetListCharacterUseCaseTest: XCTestCase {
         var nextPage: String?
         var prevPage: String?
         
-        func getCharacterList(pageNumber: String) async throws -> CharacterListResponse {
+        func getCharacterList(pageNumber: Int) async throws -> CharacterListResponse {
             if let error {
                 throw error
             } else {

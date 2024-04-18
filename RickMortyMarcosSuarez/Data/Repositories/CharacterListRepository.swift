@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CharacterListRepository {
-    func getCharacterList(pageNumber: String) async throws -> CharacterListResponse
+    func getCharacterList(pageNumber: Int) async throws -> CharacterListResponse
 }
 
 final class DefaultCharacterListRepository {
@@ -21,7 +21,7 @@ final class DefaultCharacterListRepository {
 }
 
 extension DefaultCharacterListRepository: CharacterListRepository {
-    func getCharacterList(pageNumber: String) async throws -> CharacterListResponse {
+    func getCharacterList(pageNumber: Int) async throws -> CharacterListResponse {
         do {
             let endPoint = URLCharacters.baseUrl + URLCharacters.characterUrl + "\(URLCharacters.pagination)\(pageNumber)"
             let response:CharacterListResponse = try await apiService.getDataFromRequest(from: endPoint)

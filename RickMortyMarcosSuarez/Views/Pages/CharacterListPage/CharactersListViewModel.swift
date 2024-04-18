@@ -31,7 +31,7 @@ final class CharactersListViewModel: ObservableObject {
 
         do {
             //try await Task.sleep(nanoseconds: 2_000_000_000)
-            let newCharacters = try await useCase.getCharacterList(pageNumber: "\(currentPage)")
+            let newCharacters = try await useCase.getCharacterList(pageNumber: currentPage)
             
             await MainActor.run {
                 characters += newCharacters
