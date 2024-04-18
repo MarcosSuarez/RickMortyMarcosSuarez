@@ -48,7 +48,7 @@ struct Result: Codable {
     let created: String
 }
 
-enum Gender: String, Codable {
+enum Gender: String, Codable, CaseIterable {
     case female = "Female"
     case male = "Male"
     case unknown = "unknown"
@@ -60,12 +60,12 @@ struct Location: Codable, Hashable {
     let url: String
 }
 
-enum Species: String, Codable {
+enum Species: String, Codable, CaseIterable {
     case alien = "Alien"
     case human = "Human"
 }
 
-enum Status: String, Codable {
+enum Status: String, Codable, CaseIterable {
     case alive = "Alive"
     case dead = "Dead"
     case unknown = "unknown"

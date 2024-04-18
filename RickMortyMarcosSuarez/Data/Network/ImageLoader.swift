@@ -24,7 +24,6 @@ actor ImageLoader: ObservableObject {
         if let cached = cache[urlString] {
             switch cached {
             case .completed(let image):
-                print("Cached image")
                 return image
             case .inProgress(let task):
                 return try await task.value
@@ -36,7 +35,6 @@ actor ImageLoader: ObservableObject {
             guard let url = URL(string: urlString) else {
                 throw AppError.invalidUrl
             }
-            print("Download: \(url.absoluteString)")
             let data = try await URLSession.shared.data(from: url).0
             guard let uiimage = UIImage(data: data) else {
                 throw AppError.parseError

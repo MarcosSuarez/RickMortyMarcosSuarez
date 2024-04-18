@@ -23,6 +23,14 @@ struct CharactersListView: View {
                         .frame(maxWidth: 300)
                         
                 } else {
+                    /*
+                    FilterAndSearchView { textSearch in
+                        
+                    } onFilterPressed: { filter in
+                        
+                    }
+                    */
+                    
                     listCharacters
                 }
             }
@@ -32,7 +40,6 @@ struct CharactersListView: View {
                 CharacterDetailView(character: character)
             }
         }
-        
         .task {
             await viewModel.loadCharacters()
             loadingList = false
