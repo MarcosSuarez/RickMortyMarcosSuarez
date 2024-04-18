@@ -10,40 +10,31 @@ import SwiftUI
 struct FilterRowView: View {
     
     var title: String? = nil
-    var categories:[String] = []
-    var onSelectedItem: ((String) -> Void)? = nil
-    
-    @State private var selectedItem: String = ""
-    
-    init(title: String? = nil, categories:[String], onSelectedItem: ((String)->Void)?) {
-        self.title = title
-        self.onSelectedItem = onSelectedItem
-        self.categories = categories
-    }
+    var items: [String] = []
+    @Binding var selectedItem: String
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 2) {
+        VStack(alignment: .leading, spacing: 4) {
             if let title {
                 Text(title)
             }
             ScrollView(.horizontal) {
-                HStack {
-                    ForEach(categories, id: \.self) { category in
-                        Text(category.capitalized)
+                HStack(spacing: 4) {
+                    ForEach(items, id: \.self) { item in
+                        Text(item.capitalized)
                             .font(.callout)
                             .frame(minWidth: 30)
-                            .padding(.vertical, 6)
+                            .padding(.vertical, 4)
                             .padding(.horizontal, 10)
-                            .background(isSelected(category) ? .green : .gray.opacity(0.2))
-                            .foregroundColor(isSelected(category) ? .white : .secondary)
+                            .background(item == selectedItem ? .green : .gray.opacity(0.2))
+                            .foregroundColor(item == selectedItem ? .white : .secondary)
                             .cornerRadius(16)
                             .onTapGesture {
-                                if selectedItem == category {
+                                if selectedItem == item {
                                     selectedItem = ""
                                 } else {
-                                    selectedItem = category
+                                    selectedItem = item
                                 }
-                                onSelectedItem?(selectedItem)
                             }
                     }
                 }
@@ -52,14 +43,11 @@ struct FilterRowView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
-    
-    private func isSelected(_ category: String) -> Bool {
-        category == selectedItem
-    }
 }
 
 #Preview {
-    FilterRowView(title: "Gender By:", categories: Gender.allCases.compactMap{$0.rawValue}) { selection in
-    }
-    .padding()
+    FilterRowView(title: "Gender By:",
+                  items: (Gender.allCases.compactMap{ $0.rawValue }),
+                  selectedItem: .constant(String())
+    ).padding()
 }

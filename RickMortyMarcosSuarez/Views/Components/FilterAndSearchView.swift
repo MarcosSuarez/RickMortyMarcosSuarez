@@ -9,10 +9,9 @@ import SwiftUI
 
 struct FilterAndSearchView: View {
     
-    var onSearchPressed: ((String)->Void)? = nil
-    var onFilterPressed: (([String])->Void)? = nil
+    var onChanges: ((String,[String])->Void)? = nil
     
-    @State private var filterPressed: Bool = true
+    @State private var filterPressed: Bool = false
     @State private var searchText: String = ""
     @State private var speciesSelected: String = ""
     @State private var genderSelected: String = ""
@@ -23,71 +22,64 @@ struct FilterAndSearchView: View {
             headerView
             if filterPressed {
                 filtersView
-                    .padding(.horizontal)
+                    .animation(.easeIn, value: filterPressed)
             }
-            Text(searchText)
         }
-        .animation(.bouncy, value: filterPressed)
     }
     
     private var filtersView: some View {
         VStack {
-            FilterRowView(title: "By Species:", categories: Species.allCases.compactMap{$0.rawValue}) { selected in
-                speciesSelected = selected
-                onFilterPressed?(createFilterString())
-            }
+            FilterRowView(title: "By Species:",
+                          items: Species.allCases.compactMap{$0.rawValue},
+                          selectedItem: $speciesSelected)
             
-            FilterRowView(title: "By Gender:", categories: Gender.allCases.compactMap{$0.rawValue}) { selected in
-                genderSelected = selected
-                onFilterPressed?(createFilterString())
-                
-            }
+            FilterRowView(title: "By Gender:",
+                          items: Gender.allCases.compactMap{$0.rawValue},
+                          selectedItem: $genderSelected)
             
-            FilterRowView(title: "By Status:", categories: Status.allCases.compactMap{$0.rawValue}) { selected in
-                statusSelected = selected
-                onFilterPressed?(createFilterString())
-            }
+            FilterRowView(title: "By Status:",
+                          items: Status.allCases.compactMap{$0.rawValue},
+                          selectedItem: $statusSelected)
         }
+        .padding(.leading, 4)
     }
     
     private var headerView: some View {
         HStack(alignment: .center) {
             HStack {
-                
-                TextField(
-                    "Search by name",
-                    text: $searchText
-                )
-                .textInputAutocapitalization(.never)
-                .disableAutocorrection(true)
-                .padding(.leading)
+                TextField("Search by name", text: $searchText)
+                    .textInputAutocapitalization(.never)
+                    .disableAutocorrection(true)
+                    .padding(.leading)
                 
                 Spacer()
-                Button {
-                    onSearchPressed?(searchText)
-                } label: {
-                    Image(systemName: "text.magnifyingglass")
-                        .foregroundColor(.primary)
-                }
-                .padding(.trailing, 6)
+                
+                Image(systemName: "text.magnifyingglass")
+                    .foregroundColor(.secondary)
+                    .padding(.trailing, 8)
             }
-            .padding(8)
+            .padding(.vertical, 4)
             .background(
-                RoundedRectangle(cornerRadius: 25.0)
+                RoundedRectangle(cornerRadius: 12.0)
                     .fill(.gray.tertiary)
                     .stroke(.secondary)
             )
+            
+            // Filter button
             Button {
                 filterPressed.toggle()
             } label: {
-                Image(systemName: "line.3.horizontal.decrease.circle")
+                Image(systemName: "line.3.horizontal.decrease.circle" + "\(hasFilter ? ".fill" : "")")
                     .font(.title)
-                    .foregroundColor(.primary)
+                    .foregroundColor(hasFilter ? .green : .secondary)
             }
         }
-        .font(.title2)
+        .font(.headline)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .padding(8)
+    }
+    
+    private var hasFilter: Bool {
+        !(speciesSelected.isEmpty && genderSelected.isEmpty && statusSelected.isEmpty)
     }
     
     private func createFilterString() -> [String] {
@@ -108,5 +100,6 @@ struct FilterAndSearchView: View {
 #Preview {
     VStack {
         FilterAndSearchView()
+            .padding(8)
     }
 }

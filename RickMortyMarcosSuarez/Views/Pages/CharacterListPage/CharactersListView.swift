@@ -10,7 +10,7 @@ import SwiftUI
 struct CharactersListView: View {
     
     @StateObject var viewModel = CharactersListViewModel()
-    @State private var loadingList: Bool = true
+    @State private var loadingList: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -23,13 +23,13 @@ struct CharactersListView: View {
                         .frame(maxWidth: 300)
                         
                 } else {
-                    /*
-                    FilterAndSearchView { textSearch in
-                        
-                    } onFilterPressed: { filter in
-                        
+                    
+                    FilterAndSearchView { (text, filters) in
+                        print("--- text: ", text)
+                        print("--- filtros: ", filters)
                     }
-                    */
+                        .padding(.horizontal, 16)
+                        .padding(.bottom, 4)
                     
                     listCharacters
                 }
