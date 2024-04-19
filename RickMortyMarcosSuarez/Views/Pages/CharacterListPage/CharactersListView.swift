@@ -25,11 +25,10 @@ struct CharactersListView: View {
                 } else {
                     
                     FilterAndSearchView { (text, filters) in
-                        print("--- text: ", text)
-                        print("--- filtros: ", filters)
+                        viewModel.searchWith(text: text, filters: filters)
                     }
-                        .padding(.horizontal, 16)
-                        .padding(.bottom, 4)
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 4)
                     
                     listCharacters
                 }
@@ -41,8 +40,10 @@ struct CharactersListView: View {
             }
         }
         .task {
-            await viewModel.loadCharacters()
-            loadingList = false
+            if viewModel.isLastLoadFinished {
+                await viewModel.loadCharacters()
+                loadingList = false
+            }
         }
        
     }
@@ -68,13 +69,20 @@ struct CharactersListView: View {
                         
                     }
                     .task {
-                        let reloadAtIndex = viewModel.characters.endIndex - 5
-                        if index > reloadAtIndex {
-                            await viewModel.loadCharacters()
+                        if viewModel.isLastLoadFinished {
+                            await rulesViewToAnticipateNextLoad(index: index)
                         }
                     }
                 }
             }
+        }
+    }
+    
+    private func rulesViewToAnticipateNextLoad(index: Int) async {
+        let reloadAtIndex = Double(index) * 100 / Double(viewModel.characters.endIndex)
+        
+        if reloadAtIndex > 80.0 {
+            await viewModel.loadCharacters()
         }
     }
 }

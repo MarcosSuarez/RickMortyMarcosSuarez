@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CharacterListRepository {
-    func getCharacterList(pageNumber: Int) async throws -> CharacterListResponse
+    func getCharacterList(pageNumber: Int, textSearch: String, filters: [String]) async throws -> CharacterListResponse
 }
 
 final class DefaultCharacterListRepository {
@@ -21,13 +21,26 @@ final class DefaultCharacterListRepository {
 }
 
 extension DefaultCharacterListRepository: CharacterListRepository {
-    func getCharacterList(pageNumber: Int) async throws -> CharacterListResponse {
+    func getCharacterList(pageNumber: Int, textSearch: String, filters: [String]) async throws -> CharacterListResponse {
         do {
-            let endPoint = URLCharacters.baseUrl + URLCharacters.characterUrl + "\(URLCharacters.pagination)\(pageNumber)"
+            let endPoint = createEndPoint(pageNumber: pageNumber, textSearch: textSearch, filters: filters)
             let response:CharacterListResponse = try await apiService.getDataFromRequest(from: endPoint)
             return response
         } catch {
             throw error
         }
+    }
+}
+
+private extension DefaultCharacterListRepository {
+    func createEndPoint(pageNumber: Int, textSearch: String, filters: [String]) -> String {
+        var endPoint = URLCharacters.baseUrl + URLCharacters.characterUrl + "\(URLCharacters.pagination)\(pageNumber)"
+        if !textSearch.isEmpty {
+            endPoint += "&name=\(textSearch)"
+        }
+        if !filters.isEmpty {
+            filters.forEach { endPoint += "&\($0)" }
+        }
+        return endPoint
     }
 }

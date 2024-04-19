@@ -20,7 +20,7 @@ final class CharacterListRepositoryTest: XCTestCase {
         sut = DefaultCharacterListRepository(apiService: FakeHttpClient(pageNumber: .first))
         
         do {
-            let characterList = try await sut?.getCharacterList(pageNumber: 1)
+            let characterList = try await sut?.getCharacterList(pageNumber: 1, textSearch: "", filters: [])
             
             XCTAssertNotNil(characterList, "Receive nil when array expected")
             XCTAssertEqual(characterList?.characters.count, 20)
@@ -36,7 +36,7 @@ final class CharacterListRepositoryTest: XCTestCase {
         sut = DefaultCharacterListRepository(apiService: FakeHttpClient(pageNumber: .two))
         
         do {
-            let characterList = try await sut?.getCharacterList(pageNumber: 1)
+            let characterList = try await sut?.getCharacterList(pageNumber: 1, textSearch: "", filters: [])
             
             XCTAssertNotNil(characterList, "Receive nil when array expected")
             XCTAssertEqual(characterList?.characters.count, 20)
@@ -52,7 +52,7 @@ final class CharacterListRepositoryTest: XCTestCase {
     func testResponse_LastPage_Success() async throws {
         sut = DefaultCharacterListRepository(apiService: FakeHttpClient(pageNumber: .last))
         do {
-            let characterList = try await sut?.getCharacterList(pageNumber: 1)
+            let characterList = try await sut?.getCharacterList(pageNumber: 1, textSearch: "", filters: [])
             
             XCTAssertNotNil(characterList, "Receive nil when array expected")
             XCTAssertEqual(characterList?.characters.count, 6)
@@ -67,7 +67,7 @@ final class CharacterListRepositoryTest: XCTestCase {
     func testResponse_Empty_Success() async throws {
         sut = DefaultCharacterListRepository(apiService: FakeHttpClient(pageNumber: .empty))
         do {
-            let characterList = try await sut?.getCharacterList(pageNumber: 1)
+            let characterList = try await sut?.getCharacterList(pageNumber: 1, textSearch: "", filters: [])
             
             XCTAssertNotNil(characterList, "Receive nil when array expected")
             XCTAssertTrue(characterList?.characters.isEmpty ?? false)
@@ -86,7 +86,7 @@ final class CharacterListRepositoryTest: XCTestCase {
         sut = DefaultCharacterListRepository(apiService: fakeHttpClient)
         
         do {
-            let _ = try await sut?.getCharacterList(pageNumber: 1)
+            let _ = try await sut?.getCharacterList(pageNumber: 1, textSearch: "", filters: [])
             XCTFail("Success when expect error")
         } catch let appError as AppError {
             XCTAssertEqual(appError, AppError.invalidUrl)
@@ -100,7 +100,7 @@ final class CharacterListRepositoryTest: XCTestCase {
         sut = DefaultCharacterListRepository(apiService: fakeHttpClient)
         
         do {
-            let _ = try await sut?.getCharacterList(pageNumber: 1)
+            let _ = try await sut?.getCharacterList(pageNumber: 1, textSearch: "", filters: [])
             XCTFail("Success when expect error")
         } catch let error as AppError {
             XCTAssertEqual(error, AppError.parseError)
