@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct FilterAndSearchView: View {
-    
-    var onChanges: ((String,[String])->Void)? = nil
+    /// Closure with  ( search text , [ selected filters ] )
+    var updateSearch: ((String,[String])->Void)? = nil
     
     @State private var filterPressed: Bool = false
     @State private var searchText: String = ""
@@ -32,14 +32,23 @@ struct FilterAndSearchView: View {
             FilterRowView(title: "By Species:",
                           items: Species.allCases.compactMap{$0.rawValue},
                           selectedItem: $speciesSelected)
+            .onChange(of: speciesSelected) {
+                updateSearch?(searchText, createFilterString())
+            }
             
             FilterRowView(title: "By Gender:",
                           items: Gender.allCases.compactMap{$0.rawValue},
                           selectedItem: $genderSelected)
+            .onChange(of: genderSelected) {
+                updateSearch?(searchText, createFilterString())
+            }
             
             FilterRowView(title: "By Status:",
                           items: Status.allCases.compactMap{$0.rawValue},
                           selectedItem: $statusSelected)
+            .onChange(of: statusSelected) {
+                updateSearch?(searchText, createFilterString())
+            }
         }
         .padding(.leading, 4)
     }
@@ -51,6 +60,9 @@ struct FilterAndSearchView: View {
                     .textInputAutocapitalization(.never)
                     .disableAutocorrection(true)
                     .padding(.leading)
+                    .onChange(of: searchText) {
+                        updateSearch?(searchText, createFilterString())
+                    }
                 
                 Spacer()
                 
