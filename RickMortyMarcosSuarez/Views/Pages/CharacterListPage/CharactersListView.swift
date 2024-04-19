@@ -10,7 +10,7 @@ import SwiftUI
 struct CharactersListView: View {
     
     @StateObject var viewModel = CharactersListViewModel()
-    @State private var loadingList: Bool = false
+    @State private var loadingList: Bool = true
     
     var body: some View {
         NavigationStack {
