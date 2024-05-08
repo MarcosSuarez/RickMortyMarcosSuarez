@@ -27,7 +27,6 @@ struct CharactersListView: View {
                     FilterAndSearchView { (text, filters) in
                         viewModel.searchWith(text: text, filters: filters)
                     }
-                    .padding(.horizontal, 16)
                     .padding(.bottom, 4)
                     
                     listCharacters

@@ -17,6 +17,7 @@ struct FilterRowView: View {
         VStack(alignment: .leading, spacing: 4) {
             if let title {
                 Text(title)
+                    .padding(.leading)
             }
             ScrollView(.horizontal) {
                 HStack(spacing: 4) {
@@ -38,6 +39,7 @@ struct FilterRowView: View {
                             }
                     }
                 }
+                .padding(.horizontal)
             }
             .scrollIndicators(.hidden)
         }
@@ -48,6 +50,6 @@ struct FilterRowView: View {
 #Preview {
     FilterRowView(title: "Gender By:",
                   items: (Gender.allCases.compactMap{ $0.rawValue }),
-                  selectedItem: .constant(String())
-    ).padding()
+                  selectedItem: .constant(Gender.unknown.rawValue)
+    )
 }

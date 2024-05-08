@@ -88,6 +88,7 @@ struct FilterAndSearchView: View {
         }
         .font(.headline)
         .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(.horizontal)
     }
     
     private var hasFilter: Bool {
@@ -112,6 +113,5 @@ struct FilterAndSearchView: View {
 #Preview {
     VStack {
         FilterAndSearchView()
-            .padding(8)
     }
 }
