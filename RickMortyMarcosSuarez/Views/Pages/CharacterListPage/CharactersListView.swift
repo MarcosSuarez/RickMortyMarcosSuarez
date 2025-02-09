@@ -69,24 +69,21 @@ struct CharactersListView: View {
                           items: Species.allCases.compactMap{$0.rawValue},
                           selectedItem: $speciesSelected)
             .onChange(of: speciesSelected) { oldValue, newValue in
-                viewModel.filters.remove(.speciesSelected(oldValue))
-                viewModel.filters.insert(.speciesSelected(newValue))
+                viewModel.filters.update(with:.speciesSelected(newValue))
             }
             
             FilterRowView(title: "By Gender:",
                           items: Gender.allCases.compactMap{$0.rawValue},
                           selectedItem: $genderSelected)
             .onChange(of: genderSelected) { oldValue, newValue in
-                viewModel.filters.remove(.genderSelected(oldValue))
-                viewModel.filters.insert(.genderSelected(newValue))
+                viewModel.filters.update(with: .genderSelected(newValue))
             }
             
             FilterRowView(title: "By Status:",
                           items: Status.allCases.compactMap{$0.rawValue},
                           selectedItem: $statusSelected)
             .onChange(of: statusSelected) { oldValue, newValue in
-                viewModel.filters.remove(.statusSelected(oldValue))
-                viewModel.filters.insert(.statusSelected(newValue))
+                viewModel.filters.update(with: .statusSelected(newValue))
             }
         }
         .padding(.leading, 4)

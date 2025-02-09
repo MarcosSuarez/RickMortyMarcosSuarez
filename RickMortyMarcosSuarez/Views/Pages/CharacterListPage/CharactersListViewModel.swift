@@ -13,10 +13,32 @@ final class CharactersListViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var isLastLoadFinished: Bool = true
     
-    enum FilterType: Equatable, Hashable {
+    enum FilterType: Hashable {
         case speciesSelected(String)
         case statusSelected(String)
         case genderSelected(String)
+        
+        static func == (lhs: FilterType, rhs: FilterType) -> Bool {
+            switch (lhs, rhs) {
+            case (.genderSelected, .genderSelected),
+                (.statusSelected, .statusSelected),
+                (.speciesSelected, .speciesSelected):
+                return true
+            default:
+                return false
+            }
+        }
+        
+        func hash(into hasher: inout Hasher) {
+            switch self {
+            case .genderSelected:
+                hasher.combine("genderSelected")
+            case .statusSelected:
+                hasher.combine("statusSelected")
+            case .speciesSelected:
+                hasher.combine("speciesSelected")
+            }
+        }
     }
     
     var filters = Set<FilterType>() {
