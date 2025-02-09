@@ -1,5 +1,5 @@
 //
-//  CharactersListView.swift
+//  HomeView.swift
 //  RickMortyMarcosSuarez
 //
 //  Created by Marcos Suarez Ayala on 17/4/24.
@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct CharactersListView: View {
+struct HomeView: View {
     
-    @StateObject var viewModel = CharactersListViewModel()
+    @StateObject var viewModel = HomeViewModel()
     @State private var loadingList: Bool = true
     
     @State private var speciesSelected: String = ""
@@ -129,7 +129,7 @@ struct CharactersListView: View {
 }
 
 #Preview {
-    CharactersListView()
+    HomeView()
         .toolbar(.visible, for: .navigationBar)
         .environmentObject(ImageLoader())
 }

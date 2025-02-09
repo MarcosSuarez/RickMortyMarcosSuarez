@@ -1,5 +1,5 @@
 //
-//  CharactersListViewModel.swift
+//  HomeViewModel.swift
 //  RickMortyMarcosSuarez
 //
 //  Created by Marcos Suarez Ayala on 17/4/24.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class CharactersListViewModel: ObservableObject {
+final class HomeViewModel: ObservableObject {
     
     @Published var characters: [CharacterInfo] = []
     @Published var isLoading: Bool = false

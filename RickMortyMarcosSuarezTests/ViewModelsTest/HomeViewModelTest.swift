@@ -1,5 +1,5 @@
 //
-//  CharactersListViewModelTest.swift
+//  HomeViewModelTest.swift
 //  RickMortyMarcosSuarezTests
 //
 //  Created by Marcos Suarez Ayala on 17/4/24.
@@ -8,9 +8,9 @@
 import XCTest
 @testable import RickMortyMarcosSuarez
 
-final class CharactersListViewModelTest: XCTestCase {
+final class HomeViewModelTest: XCTestCase {
     
-    private var sut: CharactersListViewModel? = nil
+    private var sut: HomeViewModel? = nil
 
     override func tearDownWithError() throws {
         sut = nil
@@ -54,10 +54,10 @@ final class CharactersListViewModelTest: XCTestCase {
     }
 
     // MARK: - Helpers:
-    private func buildSut(pageNumber: Int, of lastPage: Int) -> CharactersListViewModel {
+    private func buildSut(pageNumber: Int, of lastPage: Int) -> HomeViewModel {
         let useCase = GetListCharacterUseCaseStub()
         useCase.lastPage = lastPage
-        return CharactersListViewModel(useCase: useCase)
+        return HomeViewModel(useCase: useCase)
     }
     
     private final class GetListCharacterUseCaseStub: GetListCharacterUseCase {
