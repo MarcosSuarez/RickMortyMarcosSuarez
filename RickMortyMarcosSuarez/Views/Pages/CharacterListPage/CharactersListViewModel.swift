@@ -13,6 +13,32 @@ final class CharactersListViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var isLastLoadFinished: Bool = true
     
+    enum FilterType: Equatable, Hashable {
+        case speciesSelected(String)
+        case statusSelected(String)
+        case genderSelected(String)
+    }
+    
+    var filters = Set<FilterType>() {
+        didSet {
+            Task {
+                await searchWith(text: searchText)
+            }
+        }
+    }
+    
+    var searchText: String = "" {
+        didSet {
+            Task {
+                await searchWith(text: searchText)
+            }
+        }
+    }
+    
+    var hasFilterSelected: Bool {
+        !createFilterString().isEmpty
+    }
+    
     private let useCase: GetListCharacterUseCase
     private var currentPage: Int = 1
     private var loadMorePages: Bool = true
@@ -53,18 +79,39 @@ final class CharactersListViewModel: ObservableObject {
     }
     
     @MainActor
-    func searchWith(text: String, filters: [String]) {
+    func searchWith(text: String) {
         searchingInit = true
         guard isLastLoadFinished else { return }
         isLastLoadFinished = false
         currentPage = 1 // New search
         characters = []
         lastSearchText = text
-        lastFilters = filters
+        lastFilters = createFilterString()
         Task {
             await loadCharacters()
             isLastLoadFinished = true
             searchingInit = false
         }
+    }
+    
+    private func createFilterString() -> [String] {
+        var response: [String] = []
+        
+        for filter in filters {
+            switch filter {
+            case .speciesSelected(let species) where !species.isEmpty :
+                response.append("species=\(species.lowercased())")
+                
+            case .statusSelected(let status) where !status.isEmpty :
+                response.append("status=\(status.lowercased())")
+                
+            case .genderSelected(let gender) where !gender.isEmpty :
+                response.append("gender=\(gender.lowercased())")
+                
+            default:
+                break
+            }
+        }
+        return response
     }
 }

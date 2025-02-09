@@ -12,6 +12,12 @@ struct CharactersListView: View {
     @StateObject var viewModel = CharactersListViewModel()
     @State private var loadingList: Bool = true
     
+    @State private var speciesSelected: String = ""
+    @State private var genderSelected: String = ""
+    @State private var statusSelected: String = ""
+    
+    @State private var filterPressed: Bool = false
+    
     var body: some View {
         NavigationStack {
             VStack {
@@ -23,13 +29,20 @@ struct CharactersListView: View {
                         .frame(maxWidth: 300)
                         
                 } else {
-                    
-                    FilterAndSearchView { (text, filters) in
-                        viewModel.searchWith(text: text, filters: filters)
+                    VStack {
+                        FilterAndSearchView(
+                            searchText: $viewModel.searchText,
+                            showDetail: $filterPressed,
+                            showFilterFill: viewModel.hasFilterSelected)
+                        .padding(.bottom, 4)
+                        
+                        if filterPressed {
+                            filtersView
+                                .animation(.easeIn, value: filterPressed)
+                        }
+                        
+                        listCharacters
                     }
-                    .padding(.bottom, 4)
-                    
-                    listCharacters
                 }
             }
             .offset(y: loadingList ? -40 : 0)
@@ -45,6 +58,35 @@ struct CharactersListView: View {
             }
         }
        
+    }
+    
+    private var filtersView: some View {
+        VStack {
+            FilterRowView(title: "By Species:",
+                          items: Species.allCases.compactMap{$0.rawValue},
+                          selectedItem: $speciesSelected)
+            .onChange(of: speciesSelected) { oldValue, newValue in
+                viewModel.filters.remove(.speciesSelected(oldValue))
+                viewModel.filters.insert(.speciesSelected(newValue))
+            }
+            
+            FilterRowView(title: "By Gender:",
+                          items: Gender.allCases.compactMap{$0.rawValue},
+                          selectedItem: $genderSelected)
+            .onChange(of: genderSelected) { oldValue, newValue in
+                viewModel.filters.remove(.genderSelected(oldValue))
+                viewModel.filters.insert(.genderSelected(newValue))
+            }
+            
+            FilterRowView(title: "By Status:",
+                          items: Status.allCases.compactMap{$0.rawValue},
+                          selectedItem: $statusSelected)
+            .onChange(of: statusSelected) { oldValue, newValue in
+                viewModel.filters.remove(.statusSelected(oldValue))
+                viewModel.filters.insert(.statusSelected(newValue))
+            }
+        }
+        .padding(.leading, 4)
     }
     
     private var listCharacters: some View {
