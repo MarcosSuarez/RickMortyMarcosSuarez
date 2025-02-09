@@ -22,12 +22,7 @@ struct CharactersListView: View {
         NavigationStack {
             VStack {
                 if loadingList {
-                    Text("Loading characters list...")
-                        .multilineTextAlignment(.center)
-                        .font(.largeTitle)
-                        .fontDesign(.serif)
-                        .frame(maxWidth: 300)
-                        
+                    loadingListView
                 } else {
                     VStack {
                         FilterAndSearchView(
@@ -58,6 +53,14 @@ struct CharactersListView: View {
             }
         }
        
+    }
+    
+    private var loadingListView: some View {
+        Text("Loading characters list...")
+            .multilineTextAlignment(.center)
+            .font(.largeTitle)
+            .fontDesign(.serif)
+            .frame(maxWidth: 300)
     }
     
     private var filtersView: some View {
