@@ -36,7 +36,10 @@ struct HomeView: View {
                                 .animation(.easeIn, value: filterPressed)
                         }
                         
-                        listCharacters
+                        CharacterListView(isLoading: viewModel.isLoading,
+                                          characters: viewModel.characters,
+                                          isLastLoadFinished: viewModel.isLastLoadFinished,
+                                          nextLoad: viewModel.loadCharacters)
                     }
                 }
             }
@@ -87,44 +90,6 @@ struct HomeView: View {
             }
         }
         .padding(.leading, 4)
-    }
-    
-    private var listCharacters: some View {
-        List {
-            ForEach(Array(viewModel.characters.enumerated()), id: \.offset) { index, character in
-                NavigationLink(value: character) {
-                    VStack {
-                        CharacterListCell(
-                            urlString: character.image,
-                            name: character.name,
-                            gender: character.gender.rawValue,
-                            specie: character.species
-                        )
-                        .padding(8)
-                        
-                        if index == viewModel.characters.endIndex - 1, viewModel.isLoading {
-                            Divider()
-                            LoadingCellView()
-                                .padding()
-                        }
-                        
-                    }
-                    .task {
-                        if viewModel.isLastLoadFinished {
-                            await rulesViewToAnticipateNextLoad(index: index)
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
-    private func rulesViewToAnticipateNextLoad(index: Int) async {
-        let reloadAtIndex = Double(index) * 100 / Double(viewModel.characters.endIndex)
-        
-        if reloadAtIndex > 80.0 {
-            await viewModel.loadCharacters()
-        }
     }
 }
 
