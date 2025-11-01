@@ -36,10 +36,14 @@ struct HomeView: View {
                                 .animation(.easeIn, value: filterPressed)
                         }
                         
-                        CharacterListView(isLoading: viewModel.isLoading,
-                                          characters: viewModel.characters,
-                                          isLastLoadFinished: viewModel.isLastLoadFinished,
-                                          nextLoad: viewModel.loadCharacters)
+                        if viewModel.characters.isEmpty {
+                            ContentUnavailableView.search
+                        } else {
+                            CharacterListView(isLoading: viewModel.isLoading,
+                                              characters: viewModel.characters,
+                                              isLastLoadFinished: viewModel.isLastLoadFinished,
+                                              nextLoad: viewModel.loadCharacters)
+                        }
                     }
                 }
             }
@@ -55,7 +59,6 @@ struct HomeView: View {
                 loadingList = false
             }
         }
-       
     }
     
     private var loadingListView: some View {
