@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		143FB8692D58D0320059ED50 /* CharacterListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 143FB8682D58D0320059ED50 /* CharacterListView.swift */; };
+		14DF1DA22EB60F31004B1DBE /* FolderTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DF1DA12EB60F31004B1DBE /* FolderTabView.swift */; };
+		14DF1DA42EB74263004B1DBE /* FolderShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14DF1DA32EB74263004B1DBE /* FolderShape.swift */; };
 		193B96D62BD14EC600DAAF47 /* LoadingCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 193B96D52BD14EC600DAAF47 /* LoadingCellView.swift */; };
 		195A4BEE2BCE5E5F007C84B2 /* RickMortyMarcosSuarezApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 195A4BED2BCE5E5F007C84B2 /* RickMortyMarcosSuarezApp.swift */; };
 		195A4BF22BCE5E60007C84B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 195A4BF12BCE5E60007C84B2 /* Assets.xcassets */; };
@@ -47,6 +49,8 @@
 
 /* Begin PBXFileReference section */
 		143FB8682D58D0320059ED50 /* CharacterListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterListView.swift; sourceTree = "<group>"; };
+		14DF1DA12EB60F31004B1DBE /* FolderTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTabView.swift; sourceTree = "<group>"; };
+		14DF1DA32EB74263004B1DBE /* FolderShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderShape.swift; sourceTree = "<group>"; };
 		193B96D52BD14EC600DAAF47 /* LoadingCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingCellView.swift; sourceTree = "<group>"; };
 		195A4BEA2BCE5E5F007C84B2 /* RickMortyMarcosSuarez.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickMortyMarcosSuarez.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		195A4BED2BCE5E5F007C84B2 /* RickMortyMarcosSuarezApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RickMortyMarcosSuarezApp.swift; sourceTree = "<group>"; };
@@ -146,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				198E80632BCF907C000457BE /* LogoCharacter.swift */,
+				14DF1DA12EB60F31004B1DBE /* FolderTabView.swift */,
+				14DF1DA32EB74263004B1DBE /* FolderShape.swift */,
 				143FB8682D58D0320059ED50 /* CharacterListView.swift */,
 				198E80652BCF90B9000457BE /* CharacterListCell.swift */,
 				198E80772BD01FD3000457BE /* FilterAndSearchView.swift */,
@@ -386,8 +392,10 @@
 				143FB8692D58D0320059ED50 /* CharacterListView.swift in Sources */,
 				198E80602BCF806D000457BE /* GetListCharacterUseCase.swift in Sources */,
 				198E80782BD01FD3000457BE /* FilterAndSearchView.swift in Sources */,
+				14DF1DA42EB74263004B1DBE /* FolderShape.swift in Sources */,
 				198E80702BCFD415000457BE /* ImageLoader.swift in Sources */,
 				193B96D62BD14EC600DAAF47 /* LoadingCellView.swift in Sources */,
+				14DF1DA22EB60F31004B1DBE /* FolderTabView.swift in Sources */,
 				195A4C212BCE6975007C84B2 /* HTTPClientAsyncAwait.swift in Sources */,
 				195A4C242BCE72E2007C84B2 /* CharacterListRepository.swift in Sources */,
 				198E805B2BCF791E000457BE /* HomeView.swift in Sources */,
